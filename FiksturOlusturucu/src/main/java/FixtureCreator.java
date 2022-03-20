@@ -1,5 +1,5 @@
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class FixtureCreator {
     private List<String> teams;
@@ -17,6 +17,14 @@ public class FixtureCreator {
     {
         adjustAllFixture();
         int week = 1;
+        for(HashMap<String, String> matchesWeekly : allFixture){
+            System.out.println("Week-" + week);
+            for(String homeOwner : matchesWeekly.keySet()){
+                System.out.println(homeOwner + " vs " + matchesWeekly.get(homeOwner));
+            }
+            System.out.println();
+            week++;
+        }
 
     }
 
@@ -35,28 +43,31 @@ public class FixtureCreator {
         int temp2 = 0;
 
         while(week < lengthOfFixtureWeek) {
-            while(temp2 <= matchNumberWeekly){
-                Stream<MFixture> filteredData = tempFixtureList.stream().filter(mFixture -> !weeklyAddedTeams.contains(mFixture.away) && !weeklyAddedTeams.contains(mFixture.homeOwner));
+            while(temp2 < matchNumberWeekly){
+                List<MFixture> filteredData = tempFixtureList.stream().filter(mFixture -> (!weeklyAddedTeams.contains(mFixture.away)) && (!weeklyAddedTeams.contains(mFixture.homeOwner))).collect(Collectors.toList());
                 Random rand = new Random();
-                filteredData.findAny();
-                MFixture match = tempFixtureList.get(rand.nextInt((int) filteredData.count()));
-                if(weeklyAddedTeams.contains(match.homeOwner) ||
-                        weeklyAddedTeams.contains(match.away)){
-                    continue;
+                int index = 0;
+                if(filteredData.size() > 1)
+                {
+                    index = rand.nextInt(filteredData.size());
                 }
-                weeklyAddedTeams.add(match.homeOwner);
-                weeklyAddedTeams.add(match.away);
-                tempFixtureList.remove(match);
-                matchesPerWeek.put(match.homeOwner, match.away);
-                matchNumber--;
+
+                MFixture OneMatch = filteredData.stream().skip(index).findFirst().get();
+                weeklyAddedTeams.add(OneMatch.homeOwner);
+                weeklyAddedTeams.add(OneMatch.away);
+                matchesPerWeek.put(OneMatch.homeOwner, OneMatch.away);
+                tempFixtureList.remove(OneMatch);
+
                 temp2++;
             }
-            allFixture.add(matchesPerWeek);
+            HashMap<String, String> tempHashMap = new HashMap<>();
+            tempHashMap.putAll(matchesPerWeek);
+            allFixture.add(tempHashMap);
+            matchesPerWeek.clear();
+            weeklyAddedTeams.clear();
             week++;
+            temp2=0;
         }
-
-
-
 
     }
 
