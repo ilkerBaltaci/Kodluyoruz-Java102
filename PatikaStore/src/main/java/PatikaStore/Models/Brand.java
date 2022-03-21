@@ -1,14 +1,18 @@
 package PatikaStore.Models;
 
 public class Brand {
-    private String Id;
+    private int Id;
     private String Name;
 
-    public String getId() {
+    public Brand(String name) {
+        Name = name;
+    }
+
+    public int getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         Id = id;
     }
 

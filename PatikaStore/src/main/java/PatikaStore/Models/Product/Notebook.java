@@ -13,6 +13,15 @@ public class Notebook {
     private Brand brand;
     private String ScreenSizeInch;
     private String memory;
+    private String ram;
+
+    public String getRam() {
+        return ram;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
 
     public int getId() {
         return id;
