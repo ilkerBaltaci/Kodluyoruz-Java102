@@ -4,7 +4,7 @@ import PatikaStore.Models.Brand;
 
 import java.math.BigDecimal;
 
-public class Notebook {
+public class Notebook implements IProduct{
     private int id;
     private String name;
     private BigDecimal unitPrice;
@@ -14,6 +14,16 @@ public class Notebook {
     private String ScreenSizeInch;
     private String memory;
     private String ram;
+
+    public Notebook(String name, BigDecimal unitPrice, int discountRate, Brand brand, String screenSizeInch, String memory, String ram) {
+        this.name = name;
+        this.unitPrice = unitPrice;
+        this.discountRate = discountRate;
+        this.brand = brand;
+        ScreenSizeInch = screenSizeInch;
+        this.memory = memory;
+        this.ram = ram;
+    }
 
     public String getRam() {
         return ram;

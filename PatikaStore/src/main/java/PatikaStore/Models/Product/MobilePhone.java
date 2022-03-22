@@ -19,6 +19,19 @@ public class MobilePhone implements IProduct{
     private String ram;
     private String color;
 
+    public MobilePhone(String name, BigDecimal unitPrice, int discountRate, Brand brand, String screenSizeInch, String camera, String memory, String battery, String ram, String color) {
+        this.name = name;
+        this.unitPrice = unitPrice;
+        this.discountRate = discountRate;
+        this.brand = brand;
+        this.screenSizeInch = screenSizeInch;
+        this.camera = camera;
+        this.memory = memory;
+        this.battery = battery;
+        this.ram = ram;
+        this.color = color;
+    }
+
     public String getCamera() {
         return camera;
     }
