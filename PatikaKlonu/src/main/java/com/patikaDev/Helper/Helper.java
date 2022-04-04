@@ -2,6 +2,7 @@ package com.patikaDev.Helper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
 
 public class Helper {
 
@@ -32,5 +33,57 @@ public class Helper {
 
         return point;
 
+    }
+
+    public static boolean isFieldEmpty(JTextField field){
+        return field.getText().trim().isEmpty();
+
+    }
+
+    public static void showMsg(String str){
+        optionPaneTR();
+        String msg;
+        String title;
+
+        switch (str){
+            case "fill":
+                msg = "Lütfen tüm alanları doldurunuz!";
+                title = "Hata!";
+                break;
+            case "done":
+                msg = "İşlem Başarılı !";
+                title = "Sonuç";
+                break;
+            case "error":
+                msg = "Bir Hata Oluştu !";
+                title = "Hata!";
+                break;
+            default:
+                msg = str;
+                title = "Mesaj";
+        }
+
+        JOptionPane.showMessageDialog(null, msg, title, JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
+    public static boolean confirm(String str) {
+        String msg;
+
+        switch (str){
+            case "sure":
+                msg = "Bu işlemi gerçekleştirmek istediğinize emin misiniz?";
+                break;
+            default:
+                msg = str;
+        }
+
+        return JOptionPane.showConfirmDialog(null, msg, "Son Kararın Mı ?", JOptionPane.YES_NO_OPTION) == 0;
+    }
+
+    public static void optionPaneTR(){
+        UIManager.put("OptionPane.okButtonText", "Tamam");
+        UIManager.put("OptionPane.yesButtonText", "Evet");
+        UIManager.put("OptionPane.noButtonText", "Hayır");
     }
 }
