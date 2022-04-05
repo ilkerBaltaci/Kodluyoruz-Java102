@@ -53,6 +53,7 @@ public class OperatorGUI extends JFrame {
     private JComboBox cmb_course_patika;
     private JComboBox cmb_course_user;
     private JButton btn_course_add;
+
     private DefaultTableModel mdl_user_list;
     private Object[] row_user_list;
     private DefaultTableModel mdl_patika_list;
