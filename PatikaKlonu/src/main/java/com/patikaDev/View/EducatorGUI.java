@@ -2,9 +2,11 @@ package com.patikaDev.View;
 
 import com.patikaDev.Helper.Config;
 import com.patikaDev.Helper.Helper;
+import com.patikaDev.Model.Course;
 import com.patikaDev.Model.Educator;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class EducatorGUI extends  JFrame{
     private JPanel wrapper;
@@ -27,6 +29,9 @@ public class EducatorGUI extends  JFrame{
     private JComboBox cmb_content;
     private JButton btn_quiz_add;
 
+    private DefaultTableModel mdl_course_list;
+    private Object[] row_course_list;
+
     //Custom Class Variables
     private Educator educator;
 
@@ -41,12 +46,35 @@ public class EducatorGUI extends  JFrame{
 
         this.educator = educator;
         //Panel Lesson List -1
-
+        mdl_course_list = new DefaultTableModel();
+        Object[] col_course_list = {"ID", "Ders Adı", "Programlama Dili", "Patika", "Eğitmen"};
+        mdl_course_list.setColumnIdentifiers(col_course_list);
+        row_course_list = new Object[col_course_list.length];
+        loadCourseModel();
+        tbl_course_list.setModel(mdl_course_list);
+        tbl_course_list.getColumnModel().getColumn(0).setMaxWidth(75);
+        tbl_course_list.getTableHeader().setReorderingAllowed(false);
+        loadCourseCombo();
 
         //## End of Panel Lesson List -1
     }
 
     public static void main(String[] args) {
         EducatorGUI eduGUI = new EducatorGUI(new Educator(9, "ali", "doğan", "1111", "educator"));
+    }
+
+    private void loadCourseModel(){
+        DefaultTableModel clearModel = (DefaultTableModel) tbl_course_list.getModel();
+        clearModel.setRowCount(0);
+        int i = 0;
+        for(Course obj : Course.getList(this.educator)){
+            i = 0;
+            row_course_list[i++] = obj.getId();
+            row_course_list[i++] = obj.getName();
+            row_course_list[i++] = obj.getLang();
+            row_course_list[i++] = obj.getPatika().getName();
+            row_course_list[i++] = obj.getEducator().getName();
+            mdl_course_list.addRow(row_course_list);
+        }
     }
 }
